@@ -1,22 +1,12 @@
 package hantizlabs.jeuduroi;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import hantizlabs.jeuduroi.FloatingActionButton;
-import hantizlabs.jeuduroi.FloatingActionsMenu;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class MyActivity extends Activity {
     private CardStack mCardStack;
     private CardsDataAdapter mCardAdapter;
 
@@ -24,9 +14,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        FloatingActionButton buttonRatePlayStore= (FloatingActionButton) findViewById(R.id.buttonRatePlayStore);
-        buttonRatePlayStore.setOnClickListener(this);
 
         mCardStack = (CardStack)findViewById(R.id.container);
 
@@ -65,14 +52,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonRatePlayStore:
-                //TODO
-                break;
-        }
-
     }
 }

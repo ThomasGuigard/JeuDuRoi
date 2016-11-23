@@ -1,4 +1,4 @@
-package com.getbase.floatingactionbutton;
+package hantizlabs.jeuduroi;
 
 import android.content.Context;
 import android.content.res.TypedArray;

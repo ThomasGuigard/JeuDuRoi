@@ -15,7 +15,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_start);
 
         Button button= (Button) findViewById(R.id.button);
-        button.setOnClickListener((android.view.View.OnClickListener) this);
+        button.setOnClickListener(this);
 
     }
 
