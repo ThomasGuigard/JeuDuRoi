@@ -16,8 +16,8 @@ public class CardsDataAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, final View contentView, ViewGroup parent){
-        TextView v = (TextView)(contentView.findViewById(R.id.content));
-        v.setText(getItem(position));
+        //TextView v = (TextView)(contentView.findViewById(R.id.content));
+        //v.setText(getItem(position));
         return contentView;
     }
 
