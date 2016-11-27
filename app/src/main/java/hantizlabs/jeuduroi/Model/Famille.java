@@ -1,4 +1,4 @@
-package hantizlabs.jeuduroi;
+package hantizlabs.jeuduroi.Model;
 
 /**
  * Created by Thomas on 25/06/2016.

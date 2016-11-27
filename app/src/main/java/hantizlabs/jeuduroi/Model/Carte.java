@@ -1,10 +1,4 @@
-package hantizlabs.jeuduroi;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+package hantizlabs.jeuduroi.Model;
 
 /**
  * Created by Thomas on 25/06/2016.

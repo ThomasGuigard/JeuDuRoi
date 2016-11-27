@@ -1,4 +1,4 @@
-package hantizlabs.jeuduroi;
+package hantizlabs.jeuduroi.Model;
 
 import android.util.Log;
 

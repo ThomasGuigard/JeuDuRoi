@@ -1,8 +1,11 @@
-package hantizlabs.jeuduroi;
+package hantizlabs.jeuduroi.Model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import hantizlabs.jeuduroi.Model.Carte;
+import hantizlabs.jeuduroi.Model.Famille;
 
 /**
  * Created by Thomas on 25/06/2016.

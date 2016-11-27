@@ -105,7 +105,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                Intent intentRoy = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intentRoy = new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intentRoy);
 
                 break;
