@@ -20,6 +20,8 @@ import java.util.Objects;
 import hantizlabs.jeuduroi.Controller.InitialiseJoueurs;
 import hantizlabs.jeuduroi.Model.Joueur;
 
+import static android.view.Gravity.CENTER_VERTICAL;
+
 public class StartActivity extends Activity implements View.OnClickListener {
 
     InitialiseJoueurs aController ;
@@ -119,19 +121,26 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 EditText designation1 = new EditText(getApplicationContext());
                 // on modifie la couleur
                 designation1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                designation1.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+              //  designation1.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
                 designation1.setId(myLayout.generateViewId());
                 designation1.setWidth(650);
-                designation1.setGravity(Gravity.CENTER_HORIZONTAL);
+                designation1.setGravity(Gravity.CENTER_HORIZONTAL | CENTER_VERTICAL);
                 // doit y'avoir un bug dans le layout on est obliger de décrémenter X
                 //designation1.setX(100);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
                 int resID = getResources().getIdentifier(String.valueOf(i), "id", getApplicationContext().getPackageName());
                 // Afin de savoir ou on pose l'edit text :
+
+
                 if(i > 0){
                     params.addRule(RelativeLayout.BELOW, resID);
+                    params.addRule(RelativeLayout.ALIGN_LEFT, resID);
+                    params.addRule(RelativeLayout.ALIGN_RIGHT, resID);
                 }else{
-                    params.addRule(RelativeLayout.BELOW, R.id.background);
+                    params.addRule(RelativeLayout.BELOW, R.id.editText3);
+                    params.addRule(RelativeLayout.ALIGN_LEFT, R.id.editText3);
+                    params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.editText3);
                 }
 
                 myLayout.addView(designation1, params);
