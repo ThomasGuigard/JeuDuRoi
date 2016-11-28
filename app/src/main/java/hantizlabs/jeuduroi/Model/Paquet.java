@@ -16,6 +16,7 @@ public class Paquet {
     public static List<Carte> liste_cartes = new ArrayList<Carte>();
     private int nombreJoueurs;
     private int nombreRois;
+    private Regle mesRegles;
 
     //CONSTRUCTEUR
     public Paquet(int nombreCartes, List<Carte> liste_cartes)
@@ -73,12 +74,21 @@ public class Paquet {
 
     }
 
+    public Regle getMesRegles() {
+        return mesRegles;
+    }
+
+    public void setMesRegles(Regle mesRegles) {
+        this.mesRegles = mesRegles;
+    }
 
     public List<Carte> initializePaquet(){
 
         //CREATION DU PAQUET
 
-
+        //CREATION STANDARDE DES REGLES
+        Regle mesRegles = new Regle();
+        mesRegles = mesRegles.standardRules();
 
         //AJOUT DES CARTES DANS LA LISTE
 
@@ -94,19 +104,19 @@ public class Paquet {
         //INIT FAMILLE COEUR
         ArrayList<Carte> liste = new ArrayList<Carte>();
         setListe_cartes(liste);
-        Carte coeur_1 = new Carte("1",  coeur, "Tu distribues 1 gorgée","as_coeur");
-        Carte coeur_2 = new Carte("2", coeur, "Tu distribues 2 gorgées","a_coeur");
-        Carte coeur_3 = new Carte("3", coeur, "Tu distribues 3 gorgées","b_coeur");
-        Carte coeur_4 = new Carte("4", coeur, "Tu distribues 4 gorgées","c_coeur");
-        Carte coeur_5 = new Carte("5", coeur, "Tu distribues 5 gorgées","d_coeur");
-        Carte coeur_6 = new Carte("6", coeur, "Inventes une règle ! Ecris-la en dessous.","e_coeur");
-        Carte coeur_7 = new Carte("7", coeur, "Passe ton tour..","f_coeur");
-        Carte coeur_8 = new Carte("8", coeur, "Choisis un thème. Le sens change.","g_coeur");
-        Carte coeur_9 = new Carte("9", coeur, "Choisis une rime !","h_coeur");
-        Carte coeur_10 = new Carte("10", coeur, "Pierre - Feuille - Ciseaux avec ton voisin de gauche ! Le premier en 3 gagne.","i_coeur");
-        Carte coeur_valet = new Carte("Valet", coeur, "Tous les mecs boivent 2 gorgées !","valet_coeur");
-        Carte coeur_dame = new Carte("Dame", coeur, "Toutes les meufs boivent 2 gorgées !","reine_coeur");
-        Carte coeur_roi = new Carte("Roi", coeur, "Remplissez le verre du roi d'un quart !","roi_coeur");
+        Carte coeur_1 = new Carte("1",  coeur, mesRegles.getMaRegle(0),"as_coeur");
+        Carte coeur_2 = new Carte("2", coeur, mesRegles.getMaRegle(1),"a_coeur");
+        Carte coeur_3 = new Carte("3", coeur, mesRegles.getMaRegle(2),"b_coeur");
+        Carte coeur_4 = new Carte("4", coeur, mesRegles.getMaRegle(3),"c_coeur");
+        Carte coeur_5 = new Carte("5", coeur, mesRegles.getMaRegle(4),"d_coeur");
+        Carte coeur_6 = new Carte("6", coeur, mesRegles.getMaRegle(5),"e_coeur");
+        Carte coeur_7 = new Carte("7", coeur, mesRegles.getMaRegle(6),"f_coeur");
+        Carte coeur_8 = new Carte("8", coeur, mesRegles.getMaRegle(7),"g_coeur");
+        Carte coeur_9 = new Carte("9", coeur, mesRegles.getMaRegle(8),"h_coeur");
+        Carte coeur_10 = new Carte("10", coeur, mesRegles.getMaRegle(9),"i_coeur");
+        Carte coeur_valet = new Carte("Valet", coeur, mesRegles.getMaRegle(10),"valet_coeur");
+        Carte coeur_dame = new Carte("Dame", coeur, mesRegles.getMaRegle(11),"reine_coeur");
+        Carte coeur_roi = new Carte("Roi", coeur, mesRegles.getMaRegle(12),"roi_coeur");
 
         //AJOUT FAMILLE COEUR
 
@@ -126,19 +136,19 @@ public class Paquet {
 
         //INIT FAMILLE PIQUE
 
-        Carte pique_1 = new Carte("1", pique, "Tu distribues 1 gorgée","as_pique");
-        Carte pique_2 = new Carte("2", pique, "Tu distribues 2 gorgées","a_pique");
-        Carte pique_3 = new Carte("3", pique, "Tu distribues 3 gorgées","b_pique");
-        Carte pique_4 = new Carte("4", pique, "Tu distribues 4 gorgées","c_pique");
-        Carte pique_5 = new Carte("5", pique, "Tu distribues 5 gorgées","d_pique");
-        Carte pique_6 = new Carte("6", pique, "Inventes une règle ! Ecris-la en dessous.","e_pique");
-        Carte pique_7 = new Carte("7", pique, "Passe ton tour..","f_pique");
-        Carte pique_8 = new Carte("8", pique, "Choisis un thème. Le sens change.","g_pique");
-        Carte pique_9 = new Carte("9", pique, "Choisis une rime !","h_pique");
-        Carte pique_10 = new Carte("10", pique, "Pierre - Feuille - Ciseaux avec ton voisin de droite ! Le premier en 3 gagne.","i_pique");
-        Carte pique_valet = new Carte("Valet", pique, "Tous les mecs boivent 2 gorgées !","valet_pique");
-        Carte pique_dame = new Carte("Dame", pique, "Toutes les meufs boivent 2 gorgées !","reine_pique");
-        Carte pique_roi = new Carte("Roi", pique, "Remplissez le verre du roi d'un quart !","roi_pique");
+        Carte pique_1 = new Carte("1", pique, mesRegles.getMaRegle(0),"as_pique");
+        Carte pique_2 = new Carte("2", pique, mesRegles.getMaRegle(1),"a_pique");
+        Carte pique_3 = new Carte("3", pique, mesRegles.getMaRegle(2),"b_pique");
+        Carte pique_4 = new Carte("4", pique, mesRegles.getMaRegle(3),"c_pique");
+        Carte pique_5 = new Carte("5", pique, mesRegles.getMaRegle(4),"d_pique");
+        Carte pique_6 = new Carte("6", pique, mesRegles.getMaRegle(5),"e_pique");
+        Carte pique_7 = new Carte("7", pique, mesRegles.getMaRegle(6),"f_pique");
+        Carte pique_8 = new Carte("8", pique, mesRegles.getMaRegle(7),"g_pique");
+        Carte pique_9 = new Carte("9", pique, mesRegles.getMaRegle(8),"h_pique");
+        Carte pique_10 = new Carte("10", pique, mesRegles.getMaRegle(9),"i_pique");
+        Carte pique_valet = new Carte("Valet", pique, mesRegles.getMaRegle(10),"valet_pique");
+        Carte pique_dame = new Carte("Dame", pique, mesRegles.getMaRegle(1),"reine_pique");
+        Carte pique_roi = new Carte("Roi", pique, mesRegles.getMaRegle(12),"roi_pique");
 
         //AJOUT FAMILLE PIQUE
 
@@ -158,19 +168,19 @@ public class Paquet {
 
         //INIT FAMILLE TREFLE
 
-        Carte trefle_1 = new Carte("1", trefle, "Tu distribues 1 gorgée","as_treffle");
-        Carte trefle_2 = new Carte("2", trefle, "Tu distribues 2 gorgées","a_treffle");
-        Carte trefle_3 = new Carte("3", trefle, "Tu distribues 3 gorgées","b_treffle");
-        Carte trefle_4 = new Carte("4", trefle, "Tu distribues 4 gorgées","c_treffle");
-        Carte trefle_5 = new Carte("5", trefle, "Tu distribues 5 gorgées","d_treffle");
-        Carte trefle_6 = new Carte("6", trefle, "Inventes une règle ! Ecris-la en dessous.","e_trefle");
-        Carte trefle_7 = new Carte("7", trefle, "Passe ton tour..","f_treffle");
-        Carte trefle_8 = new Carte("8", trefle, "Choisis un thème. Le sens change.","g_treffle");
-        Carte trefle_9 = new Carte("9", trefle, "Choisis une rime !","h_treffle");
-        Carte trefle_10 = new Carte("10", trefle, "Pierre - Feuille - Ciseaux avec ton voisin de gauche ! Le premier en 3 gagne.","i_treffle");
-        Carte trefle_valet = new Carte("Valet", trefle, "Tous les mecs boivent 2 gorgées !","valet_treffle");
-        Carte trefle_dame = new Carte("Dame", trefle, "Toutes les meufs boivent 2 gorgées !","reine_treffle");
-        Carte trefle_roi = new Carte("Roi", trefle, "Remplissez le verre du roi d'un quart !","roi_treffle");
+        Carte trefle_1 = new Carte("1", trefle, mesRegles.getMaRegle(0),"as_treffle");
+        Carte trefle_2 = new Carte("2", trefle, mesRegles.getMaRegle(1),"a_treffle");
+        Carte trefle_3 = new Carte("3", trefle, mesRegles.getMaRegle(2),"b_treffle");
+        Carte trefle_4 = new Carte("4", trefle, mesRegles.getMaRegle(3),"c_treffle");
+        Carte trefle_5 = new Carte("5", trefle, mesRegles.getMaRegle(4),"d_treffle");
+        Carte trefle_6 = new Carte("6", trefle, mesRegles.getMaRegle(5),"e_trefle");
+        Carte trefle_7 = new Carte("7", trefle, mesRegles.getMaRegle(6),"f_treffle");
+        Carte trefle_8 = new Carte("8", trefle, mesRegles.getMaRegle(7),"g_treffle");
+        Carte trefle_9 = new Carte("9", trefle, mesRegles.getMaRegle(8),"h_treffle");
+        Carte trefle_10 = new Carte("10", trefle, mesRegles.getMaRegle(9),"i_treffle");
+        Carte trefle_valet = new Carte("Valet", trefle, mesRegles.getMaRegle(10),"valet_treffle");
+        Carte trefle_dame = new Carte("Dame", trefle, mesRegles.getMaRegle(11),"reine_treffle");
+        Carte trefle_roi = new Carte("Roi", trefle, mesRegles.getMaRegle(12),"roi_treffle");
 
         //AJOUT FAMILLE TREFLE
 
@@ -190,19 +200,19 @@ public class Paquet {
 
         //INIT FAMILLE CARREAU
 
-        Carte carreau_1 = new Carte("1", carreau, "Tu distribues 1 gorgée","as_carreau");
-        Carte carreau_2 = new Carte("2", carreau, "Tu distribues 2 gorgées","a_carreau");
-        Carte carreau_3 = new Carte("3", carreau, "Tu distribues 3 gorgées","b_carreau");
-        Carte carreau_4 = new Carte("4", carreau, "Tu distribues 4 gorgées","c_carreau");
-        Carte carreau_5 = new Carte("5", carreau, "Tu distribues 5 gorgées","d_carreau");
-        Carte carreau_6 = new Carte("6", carreau, "Inventes une règle !","e_carreau");
-        Carte carreau_7 = new Carte("7", carreau, "Passe ton tour..","f_carreau");
-        Carte carreau_8 = new Carte("8", carreau, "Choisis un thème. Le sens change.","g_carreau");
-        Carte carreau_9 = new Carte("9", carreau, "Choisis une rime !","h_carreau");
-        Carte carreau_10 = new Carte("10", carreau, "Pierre - Feuille - Ciseaux avec ton voisin de droite ! Le premier en 3 gagne.","i_carreau");
-        Carte carreau_valet = new Carte("Valet", carreau, "Tous les mecs boivent 2 gorgées !","valet_carreau");
-        Carte carreau_dame = new Carte("Dame", carreau, "Toutes les filles boivent 2 gorgées !","reine_carreau");
-        Carte carreau_roi = new Carte("Roi", carreau, "Remplissez le verre du roi d'un quart !","roi_carreau");
+        Carte carreau_1 = new Carte("1", carreau, mesRegles.getMaRegle(0),"as_carreau");
+        Carte carreau_2 = new Carte("2", carreau, mesRegles.getMaRegle(1),"a_carreau");
+        Carte carreau_3 = new Carte("3", carreau, mesRegles.getMaRegle(2),"b_carreau");
+        Carte carreau_4 = new Carte("4", carreau, mesRegles.getMaRegle(3),"c_carreau");
+        Carte carreau_5 = new Carte("5", carreau, mesRegles.getMaRegle(4),"d_carreau");
+        Carte carreau_6 = new Carte("6", carreau, mesRegles.getMaRegle(5),"e_carreau");
+        Carte carreau_7 = new Carte("7", carreau, mesRegles.getMaRegle(6),"f_carreau");
+        Carte carreau_8 = new Carte("8", carreau, mesRegles.getMaRegle(7),"g_carreau");
+        Carte carreau_9 = new Carte("9", carreau, mesRegles.getMaRegle(8),"h_carreau");
+        Carte carreau_10 = new Carte("10", carreau, mesRegles.getMaRegle(9),"i_carreau");
+        Carte carreau_valet = new Carte("Valet", carreau, mesRegles.getMaRegle(10),"valet_carreau");
+        Carte carreau_dame = new Carte("Dame", carreau, mesRegles.getMaRegle(11),"reine_carreau");
+        Carte carreau_roi = new Carte("Roi", carreau, mesRegles.getMaRegle(12),"roi_carreau");
 
         //AJOUT FAMILLE CARREAU
 
