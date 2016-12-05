@@ -20,7 +20,7 @@ public class Partie {
     public Partie(List<Joueur> listPlayers) {
         this.listPlayers = listPlayers;
         List<Carte> listCartes = new ArrayList<Carte>();
-        cardStack = new Paquet(52, listCartes);
+        cardStack = new Paquet();
     }
 
     public Joueur getNextJoueur(){

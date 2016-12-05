@@ -18,7 +18,7 @@ public class Carte {
         this.famille = famille;
         this.description = description;
         this.filepath = filepath;
-        Paquet.liste_cartes.add(this);
+        //this.liste_cartes.add(this);
 
     }
 

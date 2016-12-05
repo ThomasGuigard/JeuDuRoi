@@ -3,9 +3,7 @@ package hantizlabs.jeuduroi;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,8 +24,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
     InitialiseJoueurs aController ;
 
-    Button AddPls;
-    Button Rabatitude;
+    Button addPlayerButton;
+    Button startGameButton;
 
     String PlayerName;
     int rand;
@@ -41,11 +39,11 @@ public class StartActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        AddPls = (Button) findViewById(R.id.AddPlayer);
-        AddPls.setOnClickListener(this);
+        addPlayerButton = (Button) findViewById(R.id.AddPlayer);
+        addPlayerButton.setOnClickListener(this);
 
-        Rabatitude = (Button) findViewById(R.id.BeginParty);
-        Rabatitude.setOnClickListener(this);
+        startGameButton = (Button) findViewById(R.id.BeginParty);
+        startGameButton.setOnClickListener(this);
 
         aController = (InitialiseJoueurs) getApplicationContext();
         myLayout = (RelativeLayout) findViewById(R.id.ScrollLayout);
@@ -107,8 +105,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                Intent intentRoy = new Intent(getApplicationContext(), GameActivity.class);
-                startActivity(intentRoy);
+                Intent intentGame = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intentGame);
 
                 break;
 

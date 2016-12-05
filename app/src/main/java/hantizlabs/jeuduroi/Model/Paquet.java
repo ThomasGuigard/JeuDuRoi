@@ -13,16 +13,15 @@ import hantizlabs.jeuduroi.Model.Famille;
 public class Paquet {
 
     private int nombreCartes;
-    public static List<Carte> liste_cartes = new ArrayList<Carte>();
+    public List<Carte> liste_cartes = new ArrayList<Carte>();
     private int nombreJoueurs;
     private int nombreRois;
     private Regle mesRegles;
 
     //CONSTRUCTEUR
-    public Paquet(int nombreCartes, List<Carte> liste_cartes)
+    public Paquet()
     {
-        this.nombreCartes = nombreCartes;
-        this.liste_cartes = liste_cartes;
+        this.liste_cartes = initializePaquet();
         this.nombreRois = 4;
     }
 
@@ -30,7 +29,7 @@ public class Paquet {
 
     public int getNombreCartes()  {
 
-        return nombreCartes;
+        return getListe_cartes().size();
 
     }
 

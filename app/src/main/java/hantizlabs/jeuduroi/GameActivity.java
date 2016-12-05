@@ -14,8 +14,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
 import hantizlabs.jeuduroi.FloatingActionButton;
 import hantizlabs.jeuduroi.FloatingActionsMenu;
+import hantizlabs.jeuduroi.Model.Carte;
+import hantizlabs.jeuduroi.Model.Paquet;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,22 +36,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         FloatingActionButton buttonRatePlayStore= (FloatingActionButton) findViewById(R.id.buttonRatePlayStore);
         buttonRatePlayStore.setOnClickListener(this);
 
-        mCardStack = (CardStack)findViewById(R.id.container);
+        //Initialisation des paramètres du jeu
+        Paquet currentPaquet = new Paquet();
+        //Remplissage du paquet
+        currentPaquet.initializePaquet();
 
+
+        //Display of the card stack
+        mCardStack = (CardStack)findViewById(R.id.container);
         mCardStack.setContentResource(R.layout.card_content);
         mCardStack.setStackMargin(20);
-
         mCardAdapter = new CardsDataAdapter(getApplicationContext());
-        mCardAdapter.add("test1");
-        mCardAdapter.add("test2");
-        mCardAdapter.add("test3");
-        mCardAdapter.add("test4");
-        mCardAdapter.add("test5");
+        Log.i("Nb cartes avant ajout", String.valueOf(currentPaquet.getNombreCartes()));
+        //Ajout des cartes du paquet
+        for(int i = 0; i < currentPaquet.getNombreCartes(); i++){
+            Log.i("ajout d'une carte",currentPaquet.getListe_cartes().get(i).toString());
+            mCardAdapter.add(currentPaquet.randomCarte());
+        }
+
 
         mCardStack.setAdapter(mCardAdapter);
 
         if(mCardStack.getAdapter() != null) {
-            Log.i("MyActivity", "Card Stack size: " + mCardStack.getAdapter().getCount());
+            Log.i("Game Activity", "Card Stack size: " + mCardStack.getAdapter().getCount());
         }
     }
 
