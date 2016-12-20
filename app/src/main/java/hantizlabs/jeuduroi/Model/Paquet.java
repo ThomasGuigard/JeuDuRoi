@@ -18,6 +18,13 @@ public class Paquet {
     private int nombreRois;
     private Regle mesRegles;
 
+    //INIT FAMILLES
+
+    Famille coeur = new Famille("Coeur","./drawable/coeur.png");
+    Famille pique = new Famille("Pique","./drawable/pique.png");
+    Famille trefle = new Famille("Trefle","./drawable/trefle.png");
+    Famille carreau = new Famille("Carreau","./drawable/carreau.png");
+
     //CONSTRUCTEUR
     public Paquet()
     {
@@ -93,12 +100,7 @@ public class Paquet {
 
 
 
-        //INIT FAMILLES
 
-        Famille coeur = new Famille("Coeur","./drawable/coeur.png");
-        Famille pique = new Famille("Pique","./drawable/pique.png");
-        Famille trefle = new Famille("Trefle","./drawable/trefle.png");
-        Famille carreau = new Famille("Carreau","./drawable/carreau.png");
 
         //INIT FAMILLE COEUR
         ArrayList<Carte> liste = new ArrayList<Carte>();
@@ -265,7 +267,11 @@ public class Paquet {
             }
         }
 
+    }
 
+    public Carte coverCard(){
+        Carte coverCard = new Carte("FirstCard",carreau, "Retournez la première carte","dos_carte");
+        return coverCard;
     }
 
 

@@ -8,6 +8,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,15 +18,22 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.database.DataSetObserver;
 
+import hantizlabs.jeuduroi.Controller.InitialiseJoueurs;
+import hantizlabs.jeuduroi.Model.Carte;
+
 
 public class CardStack extends RelativeLayout {
     private int mColor = -1;
     private int mIndex = 0;
-    private int mNumVisible = 4;
+    private int mNumVisible = 1;
     private boolean canSwipe = true;
     private ArrayAdapter<?> mAdapter;
     private OnTouchListener mOnTouchListener;
     private hantizlabs.jeuduroi.CardAnimator mCardAnimator;
+    private Context gameActivityContext;
+    private GameActivity gameActivityView;
+    private String descriptionCarte;
+    private InitialiseJoueurs listeJoueurs;
 
     private CardEventListener mEventListener = new DefaultStackEventListener(300);
     private int mContentResource = 0;
@@ -110,6 +118,7 @@ public class CardStack extends RelativeLayout {
         }
         setupAnimation();
         loadData();
+        updateGameActivityView();
     }
 
     public void setVisibleCardNum(int visiableNum){
@@ -182,13 +191,20 @@ public class CardStack extends RelativeLayout {
                                 mCardAnimator.initLayout();
                                 mIndex++;
                                 mEventListener.discarded(mIndex, direction);
-
                                 //mIndex = mIndex%mAdapter.getCount();
                                 loadLast();
 
                                 viewCollection.get(0).setOnTouchListener(null);
                                 viewCollection.get(viewCollection.size() - 1)
                                         .setOnTouchListener(mOnTouchListener);
+
+                                //Update du nombre de cartes
+                                //GameActivity gm = new GameActivity();
+                                //gm.updateNombreCartes();
+                                //gm.updateRegleCarte();
+
+                                Log.i("nb de cartes", String.valueOf(mAdapter.getCount()));
+                                updateGameActivityView();
                             }
 
                         });
@@ -287,11 +303,40 @@ public class CardStack extends RelativeLayout {
         }
 
         View child = mAdapter.getView(lastIndex, getContentView(), parent);
+        Carte currentCarte = (Carte) mAdapter.getItem(lastIndex);
+        updateDescriptionCarte(currentCarte.getDescription());
         parent.removeAllViews();
         parent.addView(child);
     }
 
     public int getStackSize() {
         return mNumVisible;
+    }
+
+    public int getCurrentIndex(){
+        return mIndex;
+    }
+
+    public void updateGameActivityView(){
+
+        gameActivityView.updateNombreCartes(mAdapter.getCount() - getCurrentIndex());
+        gameActivityView.updateRegleCarte(getDescriptionCarte());
+        gameActivityView.updateNextJoueur(listeJoueurs.getNextJoueur());
+        Log.i("updateview", "done");
+    }
+
+    public void updateDescriptionCarte(String desc){
+        this.descriptionCarte = desc;
+    }
+
+    public String getDescriptionCarte(){
+        return descriptionCarte;
+    }
+
+
+    public void setGameActivityContext(Context ctx){
+        this.gameActivityContext = ctx;
+        this.gameActivityView = (GameActivity)gameActivityContext;
+        listeJoueurs = (InitialiseJoueurs) gameActivityView.getApplicationContext();
     }
 }

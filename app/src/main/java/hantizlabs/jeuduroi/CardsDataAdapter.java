@@ -23,7 +23,7 @@ public class CardsDataAdapter extends ArrayAdapter<Carte> {
         super(context, R.layout.card_content);
     }
 
-
+    public String description;
 
     private static class ViewHolder {
         private TextView itemView;
@@ -58,8 +58,17 @@ public class CardsDataAdapter extends ArrayAdapter<Carte> {
         ImageView imgCarte = (ImageView) contentView.findViewById(R.id.imageCarte);
         imgCarte.setImageDrawable(imgCarteDrawable);
 
+        setDescription(item.getDescription());
+
         return contentView;
     }
 
+    public void setDescription(String text){
+        this.description = text;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
 }
 

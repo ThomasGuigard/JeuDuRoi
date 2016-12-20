@@ -9,6 +9,7 @@ import android.app.Application;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import hantizlabs.jeuduroi.Model.Joueur;
 
@@ -18,6 +19,7 @@ import hantizlabs.jeuduroi.Model.Joueur;
 public class InitialiseJoueurs extends Application {
 
     private ArrayList<Joueur> MesJoueurs = new ArrayList<Joueur>();
+    private int cursorPlayer = 0;
 
     // Récup d'un joueur de la liste
     public ArrayList<Joueur> getMesJoueurs() {
@@ -44,6 +46,10 @@ public class InitialiseJoueurs extends Application {
 
     }
 
+    public void clearAllPlayers(){
+        MesJoueurs.clear();
+    }
+
     // Retourne le nombre de spermato dans tes couilles
     public int getPlayerSize() {
 
@@ -55,6 +61,27 @@ public class InitialiseJoueurs extends Application {
         return "InitialiseJoueurs{" +
                 "MesJoueurs=" + MesJoueurs +
                 '}';
+    }
+
+    public Joueur getNextJoueur(){
+        Joueur nextJoueur;
+        cursorPlayer++;
+        if(cursorPlayer <= MesJoueurs.size()-1){
+            nextJoueur = MesJoueurs.get(cursorPlayer);
+        }else{
+            cursorPlayer = 0;
+            nextJoueur = MesJoueurs.get(cursorPlayer);
+        }
+
+        Log.i("nextPlayer", nextJoueur.getPrenom() + " " + MesJoueurs.size());
+        return nextJoueur;
+    }
+
+    public Joueur getFirstJoueur(){
+        Joueur firstJoueur;
+        firstJoueur = MesJoueurs.get(0);
+        cursorPlayer = 0;
+        return firstJoueur;
     }
 
 

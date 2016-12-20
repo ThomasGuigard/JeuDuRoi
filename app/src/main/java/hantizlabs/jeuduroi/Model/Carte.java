@@ -22,6 +22,11 @@ public class Carte {
 
     }
 
+    public Carte(String valeur, String filepath){
+        this.valeur = valeur;
+        this.filepath = valeur;
+    }
+
 
 
     public String getValeur(){

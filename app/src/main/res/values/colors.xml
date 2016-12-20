@@ -16,4 +16,6 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="yellowSoft">#FFEB3B</color>
     <color name="yellowPressed">#FDD835</color>
+
+    <color name="mainColorBlue">#3498db</color>
 </resources>
