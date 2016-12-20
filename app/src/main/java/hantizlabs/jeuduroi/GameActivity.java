@@ -82,10 +82,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("updateNombreCartes","from game activity" + nbCartes);
     }
 
-    public final void updateView(){
-        //updateNombreCartes();
-    }
-
     public void updateRegleCarte(String regle){
         txtRegle.setText(regle);
     }
