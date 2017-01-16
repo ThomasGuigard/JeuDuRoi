@@ -59,6 +59,7 @@
                     android:fontFamily="sans-serif"
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryDark"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:textCursorDrawable="@color/colorPrimaryDark"
                     style="@android:style/Widget.DeviceDefault.EditText"
                     android:textAlignment="center" />
@@ -77,6 +78,7 @@
                     android:textColorHint="@color/colorPrimaryDark"
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:textCursorDrawable="@color/colorPrimaryDark"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:textAlignment="center" />
 
                 <EditText
@@ -88,6 +90,7 @@
                     android:textColorLink="@color/colorPrimaryDark"
                     android:fontFamily="sans-serif"
                     android:layout_below="@+id/editText2"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:layout_alignLeft="@+id/editText2"
                     android:layout_alignStart="@+id/editText2"
                     android:textAlignment="center" />

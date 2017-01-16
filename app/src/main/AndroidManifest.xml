@@ -24,7 +24,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".StartActivity"
-            android:theme="@style/DefaultTheme"></activity>
+            android:windowSoftInputMode="adjustPan"
+        android:theme="@style/DefaultTheme"></activity>
         <activity android:name=".GameActivity"></activity>
     </application>
 

@@ -3,6 +3,7 @@ package hantizlabs.jeuduroi;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -123,8 +124,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 designation1.setId(myLayout.generateViewId());
                 designation1.setWidth(650);
                 designation1.setGravity(Gravity.CENTER_HORIZONTAL | CENTER_VERTICAL);
-                // doit y'avoir un bug dans le layout on est obliger de décrémenter X
-                //designation1.setX(100);
+
+                designation1.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
                 int resID = getResources().getIdentifier(String.valueOf(i), "id", getApplicationContext().getPackageName());
