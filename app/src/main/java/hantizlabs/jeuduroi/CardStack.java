@@ -1,5 +1,8 @@
 package hantizlabs.jeuduroi;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -7,6 +10,7 @@ import java.util.Queue;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.database.DataSetObserver;
 
@@ -25,7 +30,7 @@ import hantizlabs.jeuduroi.Model.Carte;
 public class CardStack extends RelativeLayout {
     private int mColor = -1;
     private int mIndex = 0;
-    private int mNumVisible = 1;
+    private int mNumVisible = 5;
     private boolean canSwipe = true;
     private ArrayAdapter<?> mAdapter;
     private OnTouchListener mOnTouchListener;
@@ -302,11 +307,73 @@ public class CardStack extends RelativeLayout {
             return;
         }
 
-        View child = mAdapter.getView(lastIndex, getContentView(), parent);
+        View child = mAdapter.getView(lastIndex-1, getContentView(), parent);
+        Log.d("last index ", String.valueOf(lastIndex));
         Carte currentCarte = (Carte) mAdapter.getItem(lastIndex);
+
         updateDescriptionCarte(currentCarte.getDescription());
+        returnTopCard(lastIndex);
         parent.removeAllViews();
         parent.addView(child);
+
+
+    }
+
+    public void returnTopCard(int lastIndex){
+
+        Carte currentCarte = (Carte) mAdapter.getItem(lastIndex);
+        //Tests
+        View topView = getTopView();
+        Resources resources = getContext().getResources();
+        int resourceId = resources.getIdentifier(currentCarte.getFilepath(), "drawable",
+                getContext().getPackageName());
+        Log.d("chargement du filepath ", currentCarte.getFilepath());
+        final Drawable imgCarteDrawable =  resources.getDrawable(resourceId);
+
+        final ImageView imgCarte = (ImageView) topView.findViewById(R.id.imageCarte);
+        final AnimatorSet flipDos, flipDevant, finalFlip;
+
+        flipDos = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(),R.animator.flipdos);
+        flipDevant = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.flipdevant);
+
+        flipDevant.setTarget(imgCarte);
+        flipDos.setTarget(imgCarte);
+
+        flipDos.start();
+
+        flipDos.addListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                imgCarte.setImageDrawable(imgCarteDrawable);
+                flipDevant.start();
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+        //flipDevant.setTarget(imgCarte);
+        //flipDevant.start();
+        //imgCarte.setImageDrawable(imgCarteDrawable);
+
+        //FIN
     }
 
     public int getStackSize() {
