@@ -4,48 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto">
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cartesRestantes"
-        android:height="50dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/mainColorBlue"
-        android:background="@drawable/rounded_corner"
-        android:padding="10dp"/>
-
     <RelativeLayout
-        android:layout_width="280dp"
-        android:layout_height="100dp"
-        android:background="@drawable/rounded_corner"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/border_shadow"
+        android:id="@+id/headerGameActivity">
+
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/regleCarte"
-            android:height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:width="280dp"
+            android:id="@+id/cartesRestantes"
+            android:height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/mainColorBlue"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"/>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/joueurActuel"
+            android:width="100dp"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             android:gravity="center"
-             />
+            android:layout_toRightOf="@+id/cartesRestantes"
+            android:layout_alignTop="@+id/cartesRestantes" />
+
     </RelativeLayout>
+
 
     <TextView
         android:text="TextView"
@@ -107,6 +102,57 @@
             android:textSize="36sp"/>
 
     </RelativeLayout>
+
+    <hantizlabs.jeuduroi.CardStack
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:paddingBottom="100dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/headerGameActivity">
+    </hantizlabs.jeuduroi.CardStack>
+
+
+    <RelativeLayout
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="280dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:elevation="100dp"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="8dp"
+            >
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/regleCarte"
+            android:height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:width="280dp"
+            android:textSize="20sp"
+            android:textColor="@color/mainColorBlue"
+            android:gravity="center"
+            />
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
     <hantizlabs.jeuduroi.FloatingActionsMenu
         android:id="@+id/multiple_actions"
         android:layout_width="wrap_content"
@@ -115,18 +161,19 @@
         fab:fab_addButtonColorPressed="@color/white_pressed"
         fab:fab_addButtonPlusIconColor="@color/half_black"
         fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginTop="270dp"
         android:layout_marginRight="20dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp">
 
         <hantizlabs.jeuduroi.FloatingActionButton
             android:id="@+id/buttonRatePlayStore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_icon="@drawable/ic_fab_star"
-            fab:fab_colorNormal="@color/yellowSoft"
+            fab:fab_colorNormal="#f1c40f"
             fab:fab_title="Give a rate on Play Store !"
             fab:fab_colorPressed="@color/yellowPressed"/>
 
@@ -134,7 +181,8 @@
             android:id="@+id/restartGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
+            fab:fab_colorNormal="#e74c3c"
+            fab:fab_icon="@drawable/ic_cached_white_24dp"
             fab:fab_title="Restart the game !"
             fab:fab_colorPressed="@color/white_pressed"/>
 
@@ -142,39 +190,10 @@
             android:id="@+id/newGameFromScratch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
+            fab:fab_colorNormal="#34495e"
+            fab:fab_icon="@drawable/ic_compare_arrows_white_24dp"
             fab:fab_title="New game and names !"
             fab:fab_colorPressed="@color/white_pressed"/>
 
     </hantizlabs.jeuduroi.FloatingActionsMenu>
-    <hantizlabs.jeuduroi.CardStack
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:padding = "20dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:layout_height="500dp"
-        android:layout_below="@+id/cartesRestantes"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-
-    </hantizlabs.jeuduroi.CardStack>
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/joueurActuel"
-        android:height="40dp"
-        android:width="100dp"
-        android:textStyle="normal"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:layout_toRightOf="@+id/cartesRestantes"
-        android:layout_above="@+id/container"
-        android:layout_alignTop="@+id/cartesRestantes" />
-
-
 </RelativeLayout>

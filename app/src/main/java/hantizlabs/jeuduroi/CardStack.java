@@ -11,6 +11,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -207,7 +208,8 @@ public class CardStack extends RelativeLayout {
                                 //GameActivity gm = new GameActivity();
                                 //gm.updateNombreCartes();
                                 //gm.updateRegleCarte();
-
+                                final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.flipsound);
+                                mp.start();
                                 Log.i("nb de cartes", String.valueOf(mAdapter.getCount()));
                                 updateGameActivityView();
                             }

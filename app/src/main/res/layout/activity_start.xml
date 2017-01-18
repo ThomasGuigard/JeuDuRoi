@@ -2,20 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingBottom="5dp"
+    android:background="#446cb3"
     tools:context="hantizlabs.jeuduroi.StartActivity">
 
     <ImageView
         android:id="@+id/background"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:adjustViewBounds="true"
+        android:layout_height="120dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/jeuduroi"
-        />
+        android:src="@drawable/banniereheader"
+        android:adjustViewBounds="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/background"
-        android:layout_above="@+id/AddPlayer">
+        android:background="#446cb3"
+        android:id="@+id/mainContainer">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -31,8 +33,7 @@
             android:fillViewport="true"
             android:clipToPadding="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/linearLayout">
+            android:layout_alignParentStart="true">
 
             <RelativeLayout
                 android:layout_height="wrap_content"
@@ -53,13 +54,13 @@
                     android:id="@+id/editText"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    tools:textColor="@color/colorPrimaryDark"
-                    android:textColorLink="@color/colorPrimaryDark"
-                    android:textColor="@color/colorPrimaryDark"
+                    tools:textColor="@color/white"
+                    android:textColorLink="@color/white"
+                    android:textColor="@color/white"
                     android:fontFamily="sans-serif"
-                    android:textColorHighlight="@color/colorPrimaryDark"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textCursorDrawable="@color/colorPrimaryDark"
+                    android:textColorHighlight="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@color/white"
                     style="@android:style/Widget.DeviceDefault.EditText"
                     android:textAlignment="center" />
 
@@ -94,16 +95,11 @@
 
             </RelativeLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            xmlns:ads="http://schemas.android.com/apk/res-auto">
-
+            android:layout_height="match_parent"
+            android:id="@+id/containerButtons"
+            android:layout_above="@+id/adView">
             <Button
                 android:text="Go Rabatitude"
                 android:layout_width="match_parent"
@@ -116,31 +112,34 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textColor="@color/colorBackgroundSplashScreen"
-                android:background="@color/colorPrimary" />
+                android:background="#2980b9"
+                android:layout_marginBottom="5dp"/>
 
             <Button
                 android:text="Ajouter une PLS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/AddPlayer"
-                android:background="@color/colorPrimary"
+                android:background="#2980b9"
                 android:textColor="@color/colorBackgroundSplashScreen"
                 android:layout_above="@+id/BeginParty"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id">
-            </com.google.android.gms.ads.AdView>
-        </LinearLayout>
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"/>
+        </RelativeLayout>
 
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id">
+        </com.google.android.gms.ads.AdView>
     </RelativeLayout>
 
 </RelativeLayout>

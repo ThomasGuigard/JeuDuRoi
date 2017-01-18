@@ -18,4 +18,5 @@
     <color name="yellowPressed">#FDD835</color>
 
     <color name="mainColorBlue">#3498db</color>
+    <color name="mainDarkBlue">#3A539B</color>
 </resources>

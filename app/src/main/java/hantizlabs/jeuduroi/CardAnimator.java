@@ -33,7 +33,7 @@ public class CardAnimator{
     private HashMap<View,RelativeLayout.LayoutParams> mLayoutsMap;
     private RelativeLayout.LayoutParams[] mRemoteLayouts = new RelativeLayout.LayoutParams[4];
     private RelativeLayout.LayoutParams baseLayout;
-    private int mStackMargin=20;
+    private int mStackMargin=0;
 
     public CardAnimator(ArrayList<View> viewCollection, int backgroundColor){
         mCardCollection = viewCollection;
