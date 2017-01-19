@@ -26,6 +26,7 @@
             android:layout_margin="0dp"
             android:adjustViewBounds="true"
             android:id="@+id/imageCarte"
+            android:elevation="2dp"
             />
 
     </LinearLayout>

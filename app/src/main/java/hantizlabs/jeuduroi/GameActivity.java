@@ -1,8 +1,10 @@
 package hantizlabs.jeuduroi;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -43,18 +45,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     InterstitialAd adRestart;
     InterstitialAd adRestartFromScratch;
 
+    Intent intentStart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         setContentView(R.layout.activity_game);
 
@@ -142,15 +137,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAdClosed() {
                 requestNewInterstitial();
-                Intent intentStart = new Intent(getApplicationContext(), StartActivity.class);
+                //intentStart = new Intent(getApplicationContext(), StartActivity.class);
                 //Reset de la liste des joueurs
                 listeJoueurs.clearAllPlayers();
-                startActivity(intentStart);
+                //startActivity(intentStart);
+                //Log.d("adRestartFromScratch", "closed");
+                //overridePendingTransition(R.animator.slide_out, R.animator.slide_in);
             }
         });
 
 
         requestNewInterstitial();
+        enableFullScreen();
     }
 
     public void updateNombreCartes(int nbCartes){
@@ -216,6 +214,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onResume(){
         super.onResume();
+        enableFullScreen();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        enableFullScreen();
+    }
+
+    public void enableFullScreen(){
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -223,6 +232,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Non, j'ai encore soif !", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        builder.setTitle("Quitter ?");
+        builder.setMessage("Êtes-vous sûr de vouloir quitter ce magnifique jeu ?");
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void onClick(View v) {
@@ -244,12 +275,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.newGameFromScratch:
                 if (adRestartFromScratch.isLoaded()) {
-                    adRestartFromScratch.show();
-                } else {
-                    Intent intentStart = new Intent(getApplicationContext(), StartActivity.class);
+
+                    intentStart = new Intent(getApplicationContext(), StartActivity.class);
                     //Reset de la liste des joueurs
                     listeJoueurs.clearAllPlayers();
                     startActivity(intentStart);
+                    overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
+                    adRestartFromScratch.show();
+                } else {
+                    intentStart = new Intent(getApplicationContext(), StartActivity.class);
+                    //Reset de la liste des joueurs
+                    listeJoueurs.clearAllPlayers();
+                    startActivity(intentStart);
+                    overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
                 }
                 break;
             case R.id.restartGame:
@@ -298,6 +336,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     //Reset de la liste des joueurs
                     listeJoueurs.clearAllPlayers();
                     startActivity(intentStart);
+                    overridePendingTransition(R.animator.slide_out, R.animator.slide_in);
                 }
                 break;
             case R.id.newModeButton:

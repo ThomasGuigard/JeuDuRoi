@@ -37,13 +37,13 @@ public class CardUtils {
     }
 
     public static LayoutParams scaleFrom(View v, LayoutParams params, int pixel) {
-        Log.d("pixel", "onScroll: " + pixel);
+        //Log.d("pixel", "onScroll: " + pixel);
         params = cloneParams(params);
         params.leftMargin -= pixel;
         params.rightMargin -= pixel;
         params.topMargin -= pixel;
         params.bottomMargin -= pixel;
-        Log.d("pixel", "onScroll: " + pixel);
+        //Log.d("pixel", "onScroll: " + pixel);
         v.setLayoutParams(params);
 
         return params;

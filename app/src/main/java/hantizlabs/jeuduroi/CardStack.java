@@ -4,6 +4,8 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -31,7 +33,7 @@ import hantizlabs.jeuduroi.Model.Carte;
 public class CardStack extends RelativeLayout {
     private int mColor = -1;
     private int mIndex = 0;
-    private int mNumVisible = 5;
+    private int mNumVisible = 4;
     private boolean canSwipe = true;
     private ArrayAdapter<?> mAdapter;
     private OnTouchListener mOnTouchListener;
@@ -43,6 +45,8 @@ public class CardStack extends RelativeLayout {
 
     private CardEventListener mEventListener = new DefaultStackEventListener(300);
     private int mContentResource = 0;
+
+    public MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.flipsound);
 
 
     public interface CardEventListener{
@@ -122,9 +126,12 @@ public class CardStack extends RelativeLayout {
         for(int i = 0; i<mNumVisible; i++){
             addContainerViews();
         }
+        //mAdapter.clear();
+        mNumVisible = 0;
         setupAnimation();
         loadData();
         updateGameActivityView();
+        mNumVisible = 3;
     }
 
     public void setVisibleCardNum(int visiableNum){
@@ -208,7 +215,11 @@ public class CardStack extends RelativeLayout {
                                 //GameActivity gm = new GameActivity();
                                 //gm.updateNombreCartes();
                                 //gm.updateRegleCarte();
-                                final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.flipsound);
+
+                                if(mp.isPlaying()){
+                                    stopPlaying(mp);
+                                }
+                                mp = MediaPlayer.create(getContext(), R.raw.flipsound);
                                 mp.start();
                                 Log.i("nb de cartes", String.valueOf(mAdapter.getCount()));
                                 updateGameActivityView();
@@ -241,6 +252,11 @@ public class CardStack extends RelativeLayout {
             }
         };
         cardView.setOnTouchListener(mOnTouchListener);
+    }
+
+    public void stopPlaying(MediaPlayer mp){
+        mp.stop();
+        mp.release();
     }
 
     private DataSetObserver mOb = new DataSetObserver(){
@@ -288,6 +304,7 @@ public class CardStack extends RelativeLayout {
                 parent.setVisibility(View.VISIBLE);
             }
         }
+        Log.d("nombre de cartes ?", String.valueOf(viewCollection.size()));
     }
 
     private View getContentView(){
@@ -322,8 +339,9 @@ public class CardStack extends RelativeLayout {
     }
 
     public void returnTopCard(int lastIndex){
-
-        Carte currentCarte = (Carte) mAdapter.getItem(lastIndex);
+        Log.d("Last index", String.valueOf(lastIndex));
+        Log.d("mIndex", String.valueOf(mIndex));
+        Carte currentCarte = (Carte) mAdapter.getItem(mIndex);
         //Tests
         View topView = getTopView();
         Resources resources = getContext().getResources();
@@ -333,6 +351,7 @@ public class CardStack extends RelativeLayout {
         final Drawable imgCarteDrawable =  resources.getDrawable(resourceId);
 
         final ImageView imgCarte = (ImageView) topView.findViewById(R.id.imageCarte);
+        Log.d("Current image carte", imgCarteDrawable.toString());
         final AnimatorSet flipDos, flipDevant, finalFlip;
 
         flipDos = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(),R.animator.flipdos);
@@ -348,6 +367,7 @@ public class CardStack extends RelativeLayout {
             @Override
             public void onAnimationStart(Animator animation) {
                 // TODO Auto-generated method stub
+                Log.d("flip action", "start");
 
             }
 
@@ -361,6 +381,7 @@ public class CardStack extends RelativeLayout {
             public void onAnimationEnd(Animator animation) {
                 imgCarte.setImageDrawable(imgCarteDrawable);
                 flipDevant.start();
+                Log.d("flip action", "ended");
 
             }
 

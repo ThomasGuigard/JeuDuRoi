@@ -55,15 +55,15 @@ public class Regle {
 
         Regle standardRules = new Regle();
         standardRules.setMesRegles("Tu distribues 1 gorgée");
-        standardRules.setMesRegles("Tu distribues 2 gorgée");
-        standardRules.setMesRegles("Tu distribues 3 gorgée");
-        standardRules.setMesRegles("Tu distribues 4 gorgée");
-        standardRules.setMesRegles("Tu distribues 5 gorgée");
-        standardRules.setMesRegles("Inventes une règle ! Ecris-la en dessous.");
-        standardRules.setMesRegles("Passe ton tour..");
-        standardRules.setMesRegles("Choisis un thème. Le sens change.");
-        standardRules.setMesRegles("Choisis une rime !");
-        standardRules.setMesRegles("Pierre - Feuille - Ciseaux avec ton voisin de gauche ! Le premier en 3 gagne.");
+        standardRules.setMesRegles("Tu distribues 2 gorgées");
+        standardRules.setMesRegles("Tu distribues 3 gorgées");
+        standardRules.setMesRegles("Tu distribues 4 gorgées");
+        standardRules.setMesRegles("Tu distribues 5 gorgées");
+        standardRules.setMesRegles("Invente une règle !");
+        standardRules.setMesRegles("Passe ton tour.. (C'est à cause de ton haleine)");
+        standardRules.setMesRegles("Choisis un thème et faites un tour. (Ex : type d'alcool) 3 gorgées pour le perdant.");
+        standardRules.setMesRegles("Choisis un mot, chacun votre tour vous devez trouver une rime. 3 gorgées pour le perdant.");
+        standardRules.setMesRegles("Pierre - Feuille - Ciseaux avec ton voisin de gauche ! 3 manches, le perdant boit 3 gorgées.");
         standardRules.setMesRegles("Tous les mecs boivent 2 gorgées !");
         standardRules.setMesRegles("Toutes les filles boivent 2 gorgées !");
         standardRules.setMesRegles("Remplissez le verre du roi d'un quart !");

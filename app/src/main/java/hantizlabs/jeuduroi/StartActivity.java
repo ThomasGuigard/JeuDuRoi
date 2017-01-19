@@ -123,6 +123,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 if(atLeastOnePlayer) {
                     Intent intentGame = new Intent(getApplicationContext(), GameActivity.class);
                     startActivity(intentGame);
+                    overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
+                    finish();
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(), "Il faut au moins 1 joueur !", Toast.LENGTH_LONG);
                     toast.show();

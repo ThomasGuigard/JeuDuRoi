@@ -17,6 +17,7 @@
     <color name="yellowSoft">#FFEB3B</color>
     <color name="yellowPressed">#FDD835</color>
 
-    <color name="mainColorBlue">#3498db</color>
+    <color name="mainColorBlue">#446cb3</color>
     <color name="mainDarkBlue">#3A539B</color>
+    <color name="mainSoftBlue">#2980b9</color>
 </resources>
