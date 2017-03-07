@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -70,6 +72,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
             case R.id.BeginParty:
                 boolean atLeastOnePlayer = false;
+                int numberPlayers = 0;
 
                 Log.d(String.valueOf(myLayout),"  %:okok");
                 // Ce tableau va contenir les edittext par la suite ( cpt. Obvious )
@@ -87,46 +90,24 @@ public class StartActivity extends Activity implements View.OnClickListener {
                     // On vire les espaces puis on vérifie si le champ est rempli
                     PlayerName = PlayerName.trim();
                     if (!Objects.equals(PlayerName, "")){
-                        if(Objects.equals(PlayerName,"Coco")||(Objects.equals(PlayerName, "Corentin")) ||(Objects.equals(PlayerName, "Hantiz"))){
-                            rand = (int) (Math.random() * 2 + 1);
-
-                            switch(rand){
-
-                                case 1:
-                                    PlayerName = "M. Houdayer";
-
-                                    break;
-
-                                case 2:
-                                    PlayerName = "280° pendant 39-45min";
-
-                                    break;
-
-                                case 3:
-                                    PlayerName = "Coco PLS";
-
-                                    break;
-
-                            }
-
-                        }
                         // Tu te souviens du controller que j'avais mis dans mon app ? Même principe, le code est dans "InitialiseJoueurs"
                         // La en gros tu créée un joueur et tu l'ajoute à ta liste qui est récupérable à n'importe quel moment dans n'importe quel activité/fragment
                         aController.setMesJoueurs(new Joueur(PlayerName));
                         atLeastOnePlayer = true;
+                        numberPlayers++;
                     } else {
                         Log.d(String.valueOf(myPlayerName.getText()), "plop");
                         if(!atLeastOnePlayer)
                             atLeastOnePlayer = false;
                     }
                 }
-                if(atLeastOnePlayer) {
+                if(numberPlayers >= 2) {
                     Intent intentGame = new Intent(getApplicationContext(), GameActivity.class);
                     startActivity(intentGame);
                     overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
                     finish();
                 }else{
-                    Toast toast = Toast.makeText(getApplicationContext(), "Il faut au moins 1 joueur !", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Il faut au moins 2 joueurs !", Toast.LENGTH_LONG);
                     toast.show();
                 }
 
@@ -140,7 +121,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
                 EditText designation1 = new EditText(getApplicationContext());
                 // on modifie la couleur
-                designation1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                designation1.setTextColor(getResources().getColor(R.color.white));
+                designation1.setTypeface(null, Typeface.BOLD);
+                designation1.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                designation1.setHint("Joueur " + (i+4)); // On ajout 4 vu qu'il y a déjà 3 edittexts
               //  designation1.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
                 designation1.setId(myLayout.generateViewId());
                 designation1.setWidth(650);

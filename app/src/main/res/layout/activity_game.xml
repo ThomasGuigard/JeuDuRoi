@@ -24,13 +24,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="460dp"
-        android:layout_below="@+id/cartesRestantes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/rounded_corner"
-        android:layout_margin="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:id="@+id/menuEnd"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <Button
             android:layout_width="match_parent"
@@ -168,7 +169,8 @@
         android:id="@+id/headerGameActivity"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        xmlns:autofit="http://schemas.android.com/apk/res-auto">
 
         <TextView
             android:text="TextView"
@@ -186,20 +188,39 @@
             android:background="@drawable/rounded_corner"
             android:padding="10dp"/>
 
-        <TextView
+
+
+        <me.grantland.widget.AutofitTextView
             android:text="TextView"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="50dp"
             android:id="@+id/joueurActuel"
-            android:width="100dp"
+            android:width="80dp"
             android:textStyle="normal"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:gravity="center"
             android:layout_toRightOf="@+id/cartesRestantes"
             android:layout_alignTop="@+id/cartesRestantes"
-            android:background="@color/mainDarkBlue"
-            android:elevation="0dp" />
+            android:elevation="0dp"
+            android:padding="2dp"
+            android:maxLines="2"
+            autofit:minTextSize="10sp"
+            />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Règles"
+                android:layout_toRightOf="@+id/joueurActuel"
+                android:elevation="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/regleButton"
+                android:backgroundTint="@color/mainColorBlue"
+                android:textColor="@color/white"/>
 
     </RelativeLayout>
 </RelativeLayout>

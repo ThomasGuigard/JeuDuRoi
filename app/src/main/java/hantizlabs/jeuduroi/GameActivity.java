@@ -8,14 +8,20 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +29,15 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import hantizlabs.jeuduroi.Controller.InitialiseJoueurs;
 import hantizlabs.jeuduroi.Model.Carte;
 import hantizlabs.jeuduroi.Model.Joueur;
 import hantizlabs.jeuduroi.Model.Paquet;
+import me.grantland.widget.AutofitHelper;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,8 +53,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button playAgainButton;
     private Button changeNamesButton;
     private Button newModeButton;
+    private Button reglesButton;
     InterstitialAd adRestart;
     InterstitialAd adRestartFromScratch;
+    private Carte currentCarte = new Carte();
+    private int nombreRoisTires = 0;
+    private String contenuRegles = "";
+    private HashMap<String, String> customRules = new HashMap<>();
+    private ArrayAdapter<String> arrayAdapter;
 
     Intent intentStart;
 
@@ -63,6 +80,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         playAgainButton = (Button) findViewById(R.id.playAgainButton);
         changeNamesButton = (Button) findViewById(R.id.changeNamesButton);
         newModeButton = (Button) findViewById(R.id.newModeButton);
+        reglesButton = (Button) findViewById(R.id.regleButton);
 
         //Valeurs pas défaut des textviews
         initView();
@@ -76,14 +94,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         FloatingActionButton restartGame = (FloatingActionButton) findViewById(R.id.restartGame);
         restartGame.setOnClickListener(this);
 
+        menuButton.setOnClickListener(this);
+
         playAgainButton.setOnClickListener(this);
         changeNamesButton.setOnClickListener(this);
         newModeButton.setOnClickListener(this);
+        reglesButton.setOnClickListener(this);
 
         //Initialisation des paramètres du jeu
         Paquet currentPaquet = new Paquet();
         //Remplissage du paquet
         currentPaquet.initializePaquet();
+        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1);
 
 
         //Display of the card stack
@@ -149,11 +172,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         requestNewInterstitial();
         enableFullScreen();
+
+        //Initialisation de la resize du nom des joueurs
+        AutofitHelper.create(txtJoueurActuel);
     }
 
     public void updateNombreCartes(int nbCartes){
         if(nbCartes != 0) {
-            cartesRestantes.setText(nbCartes + " / 52");
+            cartesRestantes.setText((nbCartes - 1) + " / 52");
             Log.i("updateNombreCartes", "from game activity" + nbCartes);
         }else{
             displayEndGame();
@@ -184,12 +210,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initView(){
+        //Reset de l affichage des cartes
         cartesRestantes.setText("- / 52");
+        //Reset de la regle affichee
         txtRegle.setText("Retourne la première carte pour entamer la cuite !");
+        //Reset des joueurs
         txtProchainJoueur.setText("");
         txtJoueurActuel.setText("");
+        //Reset du menu vertical
         menuButton.performClick();
+        //Reset du menu de fin
         menuEnd.setVisibility(View.GONE);
+        //Reset des regles
+        contenuRegles = "";
+        arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1);
+        //Reset du softawre du smartphone
+        enableFullScreen();
+        //Reset des données liées aux cartes
+        nombreRoisTires = 0;
     }
 
     @Override
@@ -308,7 +347,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     mCardStack.setAdapter(mCardAdapter);
                     initView();
                 }
-
+                menuButton.performClick();
                 break;
             case R.id.playAgainButton:
                 if (adRestart.isLoaded()) {
@@ -327,6 +366,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     mCardStack.setAdapter(mCardAdapter);
                     initView();
                 }
+                menuButton.performClick();
                 break;
             case R.id.changeNamesButton:
                 if (adRestartFromScratch.isLoaded()) {
@@ -341,6 +381,59 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.newModeButton:
                 Toast.makeText(getApplicationContext(), "Fonctionnalité en développement", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.regleButton:
+                //Creation de l'html contenant les règles
+                if(customRules.size() > 0){
+                    if(arrayAdapter.getCount() > 0){
+                        arrayAdapter.clear();
+                    }
+                    Iterator it = customRules.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        contenuRegles += Html.fromHtml("<b>" + pair.getKey() +" :</n>/n</b></br>" + pair.getValue() + "</br></br>");
+                        arrayAdapter.add("" + pair.getKey().toString().toUpperCase() + " ---> " + pair.getValue().toString().toLowerCase());
+                        //System.out.println(pair.getKey() + " = " + pair.getValue());
+                    }
+                }else{
+                    arrayAdapter.add("Aucune règle, retourne boire.");
+                }
+                /*AlertDialog dialog = new AlertDialog.Builder(this)
+                        .setTitle("Règles")
+                        .setMessage("")
+                        .setPositiveButton("C'est bon j'ai retenu !", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(R.mipmap.ic_launcher)
+                        .show();*/
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setTitle("Règles");
+                dialog.setNegativeButton("Ok j'ai compris !", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                    }
+                });
+                dialog.show();
+
+                /*TextView textView = (TextView) dialog.findViewById(android.R.id.message);
+                textView.setText(contenuRegles);
+                textView.setMaxLines(5);
+                textView.setScroller(new Scroller(this));
+                textView.setVerticalScrollBarEnabled(true);
+                textView.setMovementMethod(new ScrollingMovementMethod());
+                dialog.show();*/
                 break;
         }
 
@@ -360,5 +453,56 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         adRestartFromScratch.loadAd(adRequest2);
     }
 
+    public void updateCurrentCarte(Carte currentCarte){
+        this.currentCarte = currentCarte;
+        if(currentCarte.getValeur() == "Roi" ){
+            nombreRoisTires++;
+            Log.d("nb rois", String.valueOf(nombreRoisTires));
+            if(nombreRoisTires == 4){
+                displayAnimationFinalKing();
+            }
+        }
+        if(currentCarte.getValeur() == "6"){
+            displayPopupRegle();
+        }
+    }
+
+    public void displayAnimationFinalKing(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+                .setTitle("DERNIER ROI... CUL SEC MON POTE")
+                .setPositiveButton("Merci j'ai bien vomi", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(R.mipmap.ic_launcher);
+
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View viewRoi = factory.inflate(R.layout.verreduroi, null);
+        dialog.setView(viewRoi);
+        dialog.show();
+    }
+
+    public void displayPopupRegle(){
+        final EditText input = new EditText(this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+                .setTitle("6 ! Crée une règle !")
+                .setPositiveButton("C'est dans la boite !", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(input.getText().toString().length() > 0){
+                            customRules.put(listeJoueurs.getCurrentJoueur().getPrenom(), input.getText().toString());
+                            dialog.dismiss();}
+                    }
+                })
+                .setIcon(R.mipmap.ic_launcher);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        //input.setLayoutParams(lp);
+        input.setHint("Ecris ta règle !");
+        dialog.setView(input);
+        dialog.show();
+    }
 
 }

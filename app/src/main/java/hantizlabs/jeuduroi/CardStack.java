@@ -13,7 +13,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +48,9 @@ public class CardStack extends RelativeLayout {
     private CardEventListener mEventListener = new DefaultStackEventListener(300);
     private int mContentResource = 0;
 
+    private int soundID;
+    boolean loaded = false;
+    private SoundPool soundPool;
     public MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.flipsound);
 
 
@@ -98,7 +103,19 @@ public class CardStack extends RelativeLayout {
             addContainerViews();
         }
         setupAnimation();
+        loaded = false;
+        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loaded = true;
+            }
+        });
+        soundID = soundPool.load(getContext(), R.raw.flipsound, 1);
+
     }
+
 
     private void addContainerViews(){
         FrameLayout v =  new FrameLayout(getContext());
@@ -216,11 +233,15 @@ public class CardStack extends RelativeLayout {
                                 //gm.updateNombreCartes();
                                 //gm.updateRegleCarte();
 
+                                if (loaded) {
+                                    soundPool.play(soundID, 1, 1, 1, 0, 1f);
+                                    Log.e("Test", "Played sound");
+                                }
                                 if(mp.isPlaying()){
                                     stopPlaying(mp);
                                 }
-                                mp = MediaPlayer.create(getContext(), R.raw.flipsound);
-                                mp.start();
+                                /*mp = MediaPlayer.create(getContext(), R.raw.flipsound);
+                                mp.start();*/
                                 Log.i("nb de cartes", String.valueOf(mAdapter.getCount()));
                                 updateGameActivityView();
                             }
@@ -328,9 +349,10 @@ public class CardStack extends RelativeLayout {
 
         View child = mAdapter.getView(lastIndex-1, getContentView(), parent);
         Log.d("last index ", String.valueOf(lastIndex));
-        Carte currentCarte = (Carte) mAdapter.getItem(lastIndex);
+        Carte currentCarte = (Carte) mAdapter.getItem(lastIndex - (mNumVisible - 1)); // On prend en compte le decalage dû aux cartes du dessus
 
         updateDescriptionCarte(currentCarte.getDescription());
+        gameActivityView.updateCurrentCarte(currentCarte);
         returnTopCard(lastIndex);
         parent.removeAllViews();
         parent.addView(child);
@@ -409,6 +431,7 @@ public class CardStack extends RelativeLayout {
 
     public void updateGameActivityView(){
         gameActivityView.updateRegleCarte(getDescriptionCarte());
+        Log.d("regle actuelle", getDescriptionCarte());
         gameActivityView.updateNombreCartes(mAdapter.getCount() - getCurrentIndex());
         gameActivityView.updateNextJoueur(listeJoueurs.getCurrentJoueur(), listeJoueurs.getNextJoueur());
         Log.i("updateview", "done");

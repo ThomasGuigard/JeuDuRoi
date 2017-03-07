@@ -59,10 +59,11 @@
                     android:textColor="@color/white"
                     android:fontFamily="sans-serif"
                     android:textColorHighlight="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textCursorDrawable="@color/white"
                     style="@android:style/Widget.DeviceDefault.EditText"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:inputType="textNoSuggestions"
+                    android:textStyle="bold"
+                    android:hint="Joueur 1"/>
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -72,26 +73,30 @@
                     android:layout_below="@+id/editText"
                     android:layout_alignLeft="@+id/editText"
                     android:layout_alignStart="@+id/editText"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorLink="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:textColorLink="@color/white"
                     android:fontFamily="sans-serif"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textColorHighlight="@color/colorPrimaryDark"
-                    android:textCursorDrawable="@color/colorPrimaryDark"
-                    android:textAlignment="center" />
+                    android:textColorHighlight="@color/white"
+                    android:textAlignment="center"
+                    android:inputType="textNoSuggestions"
+                    android:textStyle="bold"
+                    android:hint="Joueur 2"/>
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:id="@+id/editText3"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorLink="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    android:textColorLink="@color/white"
                     android:fontFamily="sans-serif"
                     android:layout_below="@+id/editText2"
                     android:layout_alignLeft="@+id/editText2"
                     android:layout_alignStart="@+id/editText2"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:inputType="textNoSuggestions"
+                    android:textStyle="bold"
+                    android:hint="Joueur 3"/>
 
             </RelativeLayout>
         </ScrollView>
