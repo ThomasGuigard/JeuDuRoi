@@ -287,7 +287,6 @@ public class CardStack extends RelativeLayout {
         }
     };
 
-
     //ArrayList
 
     ArrayList<View> viewCollection = new ArrayList<View>();
